@@ -10,6 +10,9 @@ type mockStorage struct {
 	returnId   int
 }
 
+/*
+GetBook provides a fake book from a mocked storage.
+*/
 func (store mockStorage) GetBook(id int) (*Book, error) {
 
 	if store.throwDbErr {
@@ -21,6 +24,9 @@ func (store mockStorage) GetBook(id int) (*Book, error) {
 	return &book, nil
 }
 
+/*
+InsertBook mocks calls to insert a book in storage.
+*/
 func (store mockStorage) InsertBook(book *Book) (int, error) {
 	if store.throwDbErr {
 		return -1, errors.New("threw an error")
@@ -28,6 +34,9 @@ func (store mockStorage) InsertBook(book *Book) (int, error) {
 	return store.returnId, nil
 }
 
+/*
+DeleteBook mocks calls to remove a book from storage.
+*/
 func (store mockStorage) DeleteBook(id int) error {
 	if store.throwDbErr {
 		return errors.New("threw an error")
@@ -35,6 +44,9 @@ func (store mockStorage) DeleteBook(id int) error {
 	return nil
 }
 
+/*
+UpdateBook mocks calls to update a book from storage.
+*/
 func (store mockStorage) UpdateBook(id int, book Book) error {
 	if store.throwDbErr {
 		return errors.New("threw an error")
