@@ -28,7 +28,7 @@ func (api *BookAPI) GetBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := DBStorage{}
-	serv := MainService{}
+	serv := BookService{}
 
 	book, err := serv.HandleRead(id, db)
 	if err != nil {
@@ -55,7 +55,7 @@ func (api *BookAPI) CreateBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := DBStorage{}
-	serv := MainService{}
+	serv := BookService{}
 
 	id, err := serv.HandleCreate(*newBook, db)
 	if err != nil {
@@ -79,7 +79,7 @@ func (api *BookAPI) DeleteBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := DBStorage{}
-	serv := MainService{}
+	serv := BookService{}
 
 	err = serv.HandleDelete(id, db)
 	if err != nil {
@@ -111,7 +111,7 @@ func (api *BookAPI) UpdateBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := DBStorage{}
-	serv := MainService{}
+	serv := BookService{}
 
 	err = serv.HandleUpdate(id, *newBook, db)
 	if err != nil {

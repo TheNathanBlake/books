@@ -16,15 +16,15 @@ type Service interface {
 }
 
 /*
-Main implementation of the Service interface.
+BookService implementation of the Service interface.
 */
-type MainService struct {
+type BookService struct {
 }
 
 /*
 HandleCreate validates input from user before passing the new book to the storage layer.
 */
-func (serv *MainService) HandleCreate(book Book, store Storage) (int, error) {
+func (serv *BookService) HandleCreate(book Book, store Storage) (int, error) {
 	if !book.IsValidTitle() {
 		return -1, fmt.Errorf("invalid title.  Expected non-empty string, received %s", book.Title)
 	} else if !book.IsValidAuthor() {
@@ -44,7 +44,10 @@ func (serv *MainService) HandleCreate(book Book, store Storage) (int, error) {
 	return id, nil
 }
 
-func (serv *MainService) HandleRead(id int, store Storage) (*Book, error) {
+/*
+HandleRead handles data fetch from storage.
+*/
+func (serv *BookService) HandleRead(id int, store Storage) (*Book, error) {
 	book, err := store.GetBook(id)
 	if err != nil {
 		return &Book{}, err
@@ -52,12 +55,18 @@ func (serv *MainService) HandleRead(id int, store Storage) (*Book, error) {
 	return book, err
 }
 
-func (serv *MainService) HandleDelete(id int, store Storage) error {
+/*
+HandleDelete handles removing a book from storage.
+*/
+func (serv *BookService) HandleDelete(id int, store Storage) error {
 	err := store.DeleteBook(id)
 	return err
 }
 
-func (serv *MainService) HandleUpdate(id int, book Book, store Storage) error {
+/*
+HandleUpdate handles updating fields on a book in storage.
+*/
+func (serv *BookService) HandleUpdate(id int, book Book, store Storage) error {
 	err := store.UpdateBook(id, book)
 	return err
 }

@@ -7,7 +7,7 @@ import (
 
 type mockStorage struct {
 	throwDbErr bool
-	returnId   int
+	returnID   int
 }
 
 /*
@@ -31,7 +31,7 @@ func (store mockStorage) InsertBook(book *Book) (int, error) {
 	if store.throwDbErr {
 		return -1, errors.New("threw an error")
 	}
-	return store.returnId, nil
+	return store.returnID, nil
 }
 
 /*
@@ -55,7 +55,7 @@ func (store mockStorage) UpdateBook(id int, book Book) error {
 }
 
 func TestHandleCreate(t *testing.T) {
-	serv := MainService{}
+	serv := BookService{}
 	store := mockStorage{false, 2}
 
 	book := Book{
@@ -84,7 +84,7 @@ func TestHandleCreate(t *testing.T) {
 }
 
 func TestHandleRead(t *testing.T) {
-	serv := MainService{}
+	serv := BookService{}
 	store := mockStorage{false, 2}
 
 	book, err := serv.HandleRead(2, store)
@@ -103,7 +103,7 @@ func TestHandleRead(t *testing.T) {
 }
 
 func TestHandleDelete(t *testing.T) {
-	serv := MainService{}
+	serv := BookService{}
 	store := mockStorage{false, 2}
 
 	err := serv.HandleDelete(2, store)
@@ -118,7 +118,7 @@ func TestHandleDelete(t *testing.T) {
 }
 
 func TestHandleUpdate(t *testing.T) {
-	serv := MainService{}
+	serv := BookService{}
 	store := mockStorage{false, 2}
 
 	book := Book{Title: "only updating the title"}
